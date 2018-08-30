@@ -1,5 +1,6 @@
 package com.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,11 @@ public class CategoriaService {
 		}
 		catch (DataIntegrityException e) {
 			throw new DataIntegrityException("Nao é possivel excluir uma categoria referenciada por produtos ");
-		}
-		
+		}	
+	}
+	
+	public List<Categoria> findAll(){
+		return this.RCategoria.findAll();
 	}
 	
 }
