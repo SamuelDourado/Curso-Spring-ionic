@@ -20,4 +20,9 @@ public class CategoriaService {
 		id + "classe " + Categoria.class.getName()));
 	}
 	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return RCategoria.save(obj);
+	}
+	
 }
