@@ -32,8 +32,11 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) {
-		this.find(obj.getId());
-		return RCategoria.save(obj);
+		Categoria newObj = this.RCategoria.findById(obj.getId()).orElseThrow(
+				() -> new ObjectNotFoundException("Objeto não encontrado id = "  +
+				obj.getId() + "classe " + Categoria.class.getName()));;
+		updateData(newObj, obj);
+		return RCategoria.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -56,6 +59,10 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
 		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 	
 }

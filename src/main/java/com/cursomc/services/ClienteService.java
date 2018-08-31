@@ -29,8 +29,12 @@ public class ClienteService {
 	}
 	
 	public Cliente update(Cliente obj) {
-		this.find(obj.getId());
-		return RCliente.save(obj);
+		Cliente newObj = RCliente.findById(obj.getId()).orElseThrow(
+				() -> new ObjectNotFoundException("Objeto não encontrado id = "  +
+						obj.getId() + " classe " + Cliente.class.getName())		
+		);
+		updateData(newObj, obj);
+		return RCliente.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -53,6 +57,12 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteDTO clienteDTO) {
 		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
+	}
+	
+	public void updateData(Cliente newObj, Cliente obj) {
+		newObj.setId(obj.getId());
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
 	}
 
 }
