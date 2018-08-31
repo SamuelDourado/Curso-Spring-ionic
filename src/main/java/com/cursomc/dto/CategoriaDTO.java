@@ -2,12 +2,19 @@ package com.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.cursomc.domain.Categoria;
 
 public class CategoriaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotEmpty(message="O campo nome é obrigatorio")
+	@Length(min=2, max=7, message="Tamanho invalido")
 	private String nome;
 	
 	public CategoriaDTO() {
